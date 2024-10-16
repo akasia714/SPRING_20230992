@@ -16,4 +16,8 @@ public class BlogService {
     public List<Article> findAll(){
         return blogRepository.findAll();
     }
+
+    public Article save(AddArticleRequest request){
+        return blogRepository.save(request.toEntity());
+    }
 }
