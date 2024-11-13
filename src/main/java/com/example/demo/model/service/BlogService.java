@@ -7,6 +7,12 @@ import org.springframework.stereotype.Service;
 //import com.example.demo.model.domain.Article;
 import com.example.demo.model.repository.BoardRepository;
 import com.example.demo.model.domain.Board;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+//import lombok.AllArgsConstructor;
+//import lombok.Data;
+//import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -35,6 +41,14 @@ public class BlogService {
         return blogRepository.findById(id);
     }
 
+    public Page<Board> findAll(Pageable pageable){
+        return blogRepository.findAll(pageable);
+    }
+
+    public Page<Board> searchByKeyword(String keyword, Pageable pageable){
+        return blogRepository.findByTitleContainingIgnoreCase(keyword, pageable);
+    }
+
     /*public void update(Long id, AddArticleRequest request){
         Optional<Article> optionalArticle = blogRepository.findById(id);
         optionalArticle.ifPresent(article -> {
@@ -42,6 +56,11 @@ public class BlogService {
             blogRepository.save(article);
         });
     }*/
+
+    public Board save(AddArticleRequest request){
+        
+        return blogRepository.save(request.toEntity());
+    }
 
     public void delete(Long id){
         blogRepository.deleteById(id);

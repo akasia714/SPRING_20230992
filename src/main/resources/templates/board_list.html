@@ -11,6 +11,12 @@
             <h1 class="mt-5">블로그 게시판(edited)</h1>
 
             <div class="mt-5">
+                <form th:action="@{/board_list}" method="get" class="mt-4">
+                    <div class="input-group">
+                        <input type="text" name="keyword" th:value="${keyword}" class="form-control" placeholder="검색어 입력...">
+                        <button type="submit" class="btn btn-primary">검색</button>
+                    </div>
+                </form>
                 <h2>게시글 목록</h2>
                 <table class="table table-bordered">
                     <thead>
@@ -35,6 +41,15 @@
                             <td th:text="${board.newdate}"></td>
                             <td th:text="${board.count}"></td>
                             <td th:text="${board.likec}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <a class="btn btn-warning" th:href="@{/board_write}">글쓰기</a>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
