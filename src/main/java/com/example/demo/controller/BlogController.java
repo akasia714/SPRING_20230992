@@ -52,6 +52,16 @@ public class BlogController {
         return "board_list";
     }
     
+    @GetMapping("/board_view/{id}")
+    public String board_view(Model model, @PathVariable Long id) {
+        Optional<Board> list = blogService.findById(id);
+
+        if (list.isPresent()){
+            model.addAttribute("boards", list.get());
+        }
+        return "board_view";
+    } 
+
     @GetMapping("/board_write")
     public String board_write(){
         return "board_write";
@@ -69,19 +79,6 @@ public class BlogController {
         }
         return "article_edit";
     }*/
-
-    @GetMapping("/board_view/{id}")
-    public String board_view(Model model, @PathVariable Long id) {
-        Optional<Board> list = blogService.findById(id);
-
-        if (list.isPresent()){
-            model.addAttribute("boards", list.get());
-        } else {
-            return "/error_page/article_error";
-        }
-        return "board_view";
-    }
-    
 
     /*@PutMapping("/api/article_edit/{id}")
     public String updateArticle(@PathVariable Long id, @ModelAttribute AddArticleRequest request){

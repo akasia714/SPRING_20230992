@@ -1,7 +1,7 @@
 package com.example.demo.model.service;
 
 import lombok.*;
-import com.example.demo.model.domain.Article;
+//import com.example.demo.model.domain.Article;
 import com.example.demo.model.domain.Board;
 
 @NoArgsConstructor
