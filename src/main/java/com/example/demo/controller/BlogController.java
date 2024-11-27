@@ -6,6 +6,7 @@ import java.util.Optional;
 import com.example.demo.model.domain.Board;
 import com.example.demo.model.service.AddArticleRequest;
 import com.example.demo.model.service.BlogService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,9 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 //import org.springframework.web.bind.annotation.RequestBody;
 
-
-
-
 @Controller
 public class BlogController {
     @Autowired
@@ -36,7 +34,14 @@ public class BlogController {
     }*/
     
     @GetMapping("/board_list")
-    public String board_list(Model model, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "") String keyword) {
+    public String board_list(Model model, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "") String keyword, HttpSession session) {
+        String userID = (String) session.getAttribute("userID");
+
+        if (userID == null){
+            return "redirect:/member_login";
+        }
+        System.out.println("세션 userID: "+ userID);
+        
         PageRequest pageable = PageRequest.of(page, 3);
         Page<Board> list; //page 반환
 
